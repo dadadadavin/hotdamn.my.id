@@ -5,8 +5,7 @@ draft: false
 description: "Di balik rekonsiliasi politik yang tersenyum manis di depan kamera, perang dingin terpanas terjadi di server analitik: perebutan akses data sentimen pemilih muda dan infrastruktur bot WhatsApp."
 categories: ["Politik"]
 tags: ["Pemilu", "Data Privasi", "Koalisi", "Investigasi"]
-author: "Redaksi hotdamn."
-hotTake: "Di era algoritma, loyalitas partai politik tidak ditentukan oleh kursi menteri, melainkan siapa yang memegang kunci enkripsi database perilaku pemilih."
+author: "Davin Loana"
 ---
 
 Foto bersama di pelataran istana dengan kemeja putih dan senyum ramah telah tayang di seluruh stasiun televisi nasional. Pernyataan pers bersama menyebutkan bahwa koalisi berada dalam keadaan "sangat solid dan harmonis".

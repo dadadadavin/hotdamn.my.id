@@ -1,66 +1,57 @@
 {{ define "main" }}
-<article class="article-container">
+<article class="article-reader">
   
-  <header class="article-header">
-    <div class="article-meta-top">
-      {{ with .Params.categories }}
-        <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/" class="article-category-badge">{{ index . 0 }}</a>
-        <span class="meta-dot">·</span>
-      {{ end }}
-      <time datetime="{{ .Date.Format "2006-01-02" }}" class="article-date">{{ .Date.Format "02 January 2006" }}</time>
-      <span class="meta-dot">·</span>
-      <span class="article-readtime">{{ .ReadingTime }} menit membaca</span>
-    </div>
-
-    <h1 class="article-title">{{ .Title }}</h1>
-
+  <header class="reader-header">
+    <h1 class="reader-title">{{ .Title }}</h1>
+    
     {{ with .Description }}
-      <p class="article-lead">{{ . }}</p>
+      <p class="reader-subtitle">{{ . }}</p>
     {{ end }}
 
-    <div class="article-byline">
-      <div class="author-avatar">{{ substr (default "R" .Params.author) 0 1 }}</div>
-      <div class="author-info">
-        <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
-        <span class="author-role">Investigasi & Analisis hotdamn.</span>
+    <div class="reader-author-bar">
+      <div class="author-avatar">{{ substr (default "D" .Params.author) 0 1 }}</div>
+      <div class="author-details">
+        <div class="author-name-row">
+          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+        </div>
+        <div class="author-meta-row">
+          <span>{{ .ReadingTime }} min read</span>
+          <span class="meta-separator">·</span>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+        </div>
       </div>
     </div>
   </header>
 
-  {{ with .Params.hotTake }}
-  <div class="hot-take-box">
-    <div class="hot-take-header">
-      <span class="hot-take-tag">HOT TAKE / CATATAN REDAKSI</span>
-    </div>
-    <p class="hot-take-content">{{ . }}</p>
-  </div>
-  {{ end }}
+  <div class="reader-divider"></div>
 
-  <div class="article-body">
+  <div class="reader-body">
     {{ .Content }}
   </div>
 
-  <footer class="article-footer">
+  <footer class="reader-footer">
     {{ with .Params.tags }}
-      <div class="article-tags">
+      <div class="reader-tags">
         {{ range . }}
-          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag-pill">#{{ . }}</a>
+          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="reader-tag">{{ . }}</a>
         {{ end }}
       </div>
     {{ end }}
 
-    {{ partial "share.html" . }}
+    <div class="reader-divider"></div>
 
-    <div class="article-author-card">
-      <div class="author-avatar-large">{{ substr (default "R" .Params.author) 0 1 }}</div>
-      <div class="author-card-text">
-        <h4>{{ default .Site.Params.author .Params.author }}</h4>
-        <p>Liputan independen tentang masa depan kecerdasan buatan, politik kekuasaan, dan manuver digital di Indonesia tanpa sensor korporat.</p>
+    <div class="reader-share-row">
+      <span class="share-title">Share this story:</span>
+      <div class="share-links">
+        <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://t.me/share/url?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+        <button type="button" class="copy-link-btn" onclick="copyArticleLink(this)">Copy Link</button>
       </div>
     </div>
 
-    <div class="back-nav">
-      <a href="{{ "/" | relURL }}" class="back-link">← Kembali ke Beranda</a>
+    <div class="reader-back">
+      <a href="{{ "/" | relURL }}">← Back to all stories</a>
     </div>
   </footer>
 

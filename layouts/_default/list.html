@@ -1,49 +1,40 @@
 {{ define "main" }}
-<div class="homepage-container">
-  
-  <header class="archive-header">
-    <span class="archive-eyebrow">ARSIP KATEGORI</span>
-    <h1 class="archive-title">{{ .Title }}</h1>
-    {{ with .Description }}
-      <p class="archive-desc">{{ . }}</p>
-    {{ end }}
-  </header>
+<div class="main-wrapper">
 
-  <section class="articles-feed">
+  <div class="archive-headline">
+    <h1>{{ .Title }}</h1>
+  </div>
+
+  <div class="stories-stream">
     {{ range $index, $post := .Pages }}
-      <article class="feed-item">
-        <div class="item-meta">
-          <time datetime="{{ .Date.Format "2006-01-02" }}" class="meta-date">{{ .Date.Format "02 Jan 2006" }}</time>
-          <span class="meta-dot">·</span>
-          <span class="meta-reading-time">{{ .ReadingTime }} min baca</span>
-          {{ with .Params.hotTake }}
-            <span class="badge-hot-take">HOT TAKE</span>
-          {{ end }}
+      <article class="story-item">
+        <div class="story-author-meta">
+          <div class="author-avatar">{{ substr (default "D" .Params.author) 0 1 }}</div>
+          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+          <span class="meta-separator">·</span>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
         </div>
 
-        <h2 class="item-title">
+        <h2 class="story-title">
           <a href="{{ .Permalink }}">{{ .Title }}</a>
         </h2>
 
-        <p class="item-excerpt">
-          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
+        <p class="story-snippet">
+          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 150 }}{{ end }}
         </p>
 
-        <div class="item-author-row">
-          <div class="author-avatar-small">{{ substr (default "R" .Params.author) 0 1 }}</div>
-          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+        <div class="story-footer-meta">
+          <span class="story-readtime">{{ .ReadingTime }} min read</span>
         </div>
       </article>
       {{ if lt $index (sub (len $.Pages) 1) }}
-        <hr class="feed-divider">
+        <div class="story-divider"></div>
       {{ end }}
-    {{ else }}
-      <p class="empty-state">Belum ada artikel dalam kategori ini.</p>
     {{ end }}
-  </section>
+  </div>
 
-  <div class="back-nav">
-    <a href="{{ "/" | relURL }}" class="back-link">← Kembali ke Beranda</a>
+  <div class="reader-back" style="margin-top: 32px;">
+    <a href="{{ "/" | relURL }}">← Back to all stories</a>
   </div>
 
 </div>

@@ -1,21 +1,13 @@
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="footer-logo">hotdamn<span class="dot">.</span></span>
-      <p class="footer-desc">{{ .Site.Params.description }}</p>
+    <div class="footer-logo">hotdamn<span class="logo-dot">.</span></div>
+    <div class="footer-links">
+      <a href="{{ "/tentang/" | relURL }}">Tentang</a>
+      <a href="{{ "/index.xml" | relURL }}">RSS</a>
+      <a href="{{ "/admin/" | relURL }}">Admin</a>
     </div>
-
-    <div class="footer-meta">
-      <div class="footer-links">
-        <a href="{{ "/index.xml" | relURL }}">RSS Feed</a>
-        <span class="sep">/</span>
-        <a href="{{ "/tentang/" | relURL }}">Tentang Kami</a>
-        <span class="sep">/</span>
-        <a href="{{ "/pedoman-redaksi/" | relURL }}">Pedoman Redaksi</a>
-        <span class="sep">/</span>
-        <a href="{{ "/admin/" | relURL }}">Editor Admin</a>
-      </div>
-      <p class="copyright">© {{ now.Format "2006" }} {{ .Site.Title }} Hak cipta dilindungi. Ditulis dan diterbitkan dari Jakarta, Indonesia.</p>
+    <div class="copyright">
+      © {{ now.Format "2006" }} hotdamn.my.id. Jurnalisme independen & analisis digital.
     </div>
   </div>
 </footer>

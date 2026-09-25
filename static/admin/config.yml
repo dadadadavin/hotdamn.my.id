@@ -16,15 +16,14 @@ collections:
       - { label: "Judul Artikel", name: "title", widget: "string" }
       - { label: "Tanggal Terbit", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
-      - { label: "Ringkasan / Lead (SEO Description)", name: "description", widget: "text", required: true }
+      - { label: "Ringkasan / Subtitle", name: "description", widget: "text", required: true }
       - label: "Kategori"
         name: "categories"
         widget: "select"
         multiple: true
-        options: ["Tech & AI", "Politik", "Konflik & Drama", "Hot Take"]
+        options: ["Tech & AI", "Politik", "Konflik"]
         default: ["Tech & AI"]
       - { label: "Tags / Topik", name: "tags", widget: "list", default: ["Indonesia"] }
-      - { label: "Penulis", name: "author", widget: "string", default: "Redaksi hotdamn." }
-      - { label: "Hot Take / Catatan Redaksi (Opsional)", name: "hotTake", widget: "string", required: false }
+      - { label: "Penulis", name: "author", widget: "string", default: "Davin Loana" }
       - { label: "Gambar Utama (1200x630)", name: "featuredImage", widget: "image", required: false }
       - { label: "Isi Artikel (Markdown)", name: "body", widget: "markdown" }

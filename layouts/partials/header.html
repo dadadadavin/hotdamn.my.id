@@ -1,17 +1,13 @@
-<header class="site-header">
-  <div class="header-inner">
-    <div class="logo-area">
-      <a href="{{ "/" | relURL }}" class="brand-logo" aria-label="hotdamn. beranda">
-        hotdamn<span class="dot">.</span>
-      </a>
-      <span class="tagline-hidden-mobile">{{ .Site.Params.tagline }}</span>
+<header class="medium-header">
+  <div class="header-container">
+    <div class="header-left">
+      <a href="{{ "/" | relURL }}" class="medium-logo">hotdamn<span class="logo-dot">.</span></a>
     </div>
-
-    <nav class="nav-links" aria-label="Navigasi Utama">
-      <a href="{{ "/categories/tech-ai/" | relURL }}" class="nav-item">Tech & AI</a>
-      <a href="{{ "/categories/politik/" | relURL }}" class="nav-item">Politik</a>
-      <a href="{{ "/categories/konflik-drama/" | relURL }}" class="nav-item">Konflik & Drama</a>
-      <a href="{{ "/tentang/" | relURL }}" class="nav-item">Tentang</a>
+    <nav class="header-nav">
+      <a href="{{ "/categories/tech-ai/" | relURL }}">Tech & AI</a>
+      <a href="{{ "/categories/politik/" | relURL }}">Politik</a>
+      <a href="{{ "/categories/konflik-drama/" | relURL }}">Konflik</a>
+      <a href="{{ "/tentang/" | relURL }}">Tentang</a>
     </nav>
   </div>
 </header>

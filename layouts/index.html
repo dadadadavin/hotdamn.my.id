@@ -1,60 +1,47 @@
 {{ define "main" }}
-<div class="homepage-container">
-  
-  <!-- Masthead Intro (Medium subtle style) -->
-  <section class="masthead-intro">
-    <div class="masthead-content">
-      <h1 class="masthead-title">Cerita & analisis yang tidak berani diungkap media arus utama.</h1>
-      <p class="masthead-sub">Membongkar persimpangan teknologi, kecerdasan buatan, manuver politik, dan konflik kekuasaan di Indonesia.</p>
-    </div>
-  </section>
+<div class="main-wrapper">
 
-  <!-- Category Nav Pills -->
-  <div class="category-filter-bar" aria-label="Filter Kategori">
-    <a href="{{ "/" | relURL }}" class="cat-pill active">Semua Liputan</a>
-    <a href="{{ "/categories/tech-ai/" | relURL }}" class="cat-pill">Tech & AI</a>
-    <a href="{{ "/categories/politik/" | relURL }}" class="cat-pill">Politik</a>
-    <a href="{{ "/categories/konflik-drama/" | relURL }}" class="cat-pill">Konflik & Drama</a>
+  <!-- Minimal Tab Bar (Medium style) -->
+  <div class="tabs-nav">
+    <a href="{{ "/" | relURL }}" class="tab-item active">Terkini</a>
+    <a href="{{ "/categories/tech-ai/" | relURL }}" class="tab-item">Tech & AI</a>
+    <a href="{{ "/categories/politik/" | relURL }}" class="tab-item">Politik</a>
+    <a href="{{ "/categories/konflik-drama/" | relURL }}" class="tab-item">Konflik</a>
   </div>
 
-  <!-- Articles List -->
-  <section class="articles-feed">
+  <!-- Stories Stream -->
+  <div class="stories-stream">
     {{ $posts := where .Site.RegularPages "Type" "posts" }}
     {{ range $index, $post := $posts }}
-      <article class="feed-item {{ if eq $index 0 }}featured-lead{{ end }}">
-        <div class="item-meta">
-          {{ with .Params.categories }}
-            <span class="meta-category">{{ index . 0 }}</span>
-            <span class="meta-dot">·</span>
-          {{ end }}
-          <time datetime="{{ .Date.Format "2006-01-02" }}" class="meta-date">{{ .Date.Format "02 Jan 2006" }}</time>
-          <span class="meta-dot">·</span>
-          <span class="meta-reading-time">{{ .ReadingTime }} min baca</span>
-          {{ with .Params.hotTake }}
-            <span class="badge-hot-take">HOT TAKE</span>
-          {{ end }}
+      <article class="story-item">
+        <div class="story-author-meta">
+          <div class="author-avatar">{{ substr (default "D" .Params.author) 0 1 }}</div>
+          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+          <span class="meta-separator">·</span>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
         </div>
 
-        <h2 class="item-title">
+        <h2 class="story-title">
           <a href="{{ .Permalink }}">{{ .Title }}</a>
         </h2>
 
-        <p class="item-excerpt">
-          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
+        <p class="story-snippet">
+          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 150 }}{{ end }}
         </p>
 
-        <div class="item-author-row">
-          <div class="author-avatar-small">{{ substr (default "R" .Params.author) 0 1 }}</div>
-          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+        <div class="story-footer-meta">
+          {{ with .Params.categories }}
+            <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/" class="story-tag">{{ index . 0 }}</a>
+            <span class="meta-separator">·</span>
+          {{ end }}
+          <span class="story-readtime">{{ .ReadingTime }} min read</span>
         </div>
       </article>
       {{ if lt $index (sub (len $posts) 1) }}
-        <hr class="feed-divider">
+        <div class="story-divider"></div>
       {{ end }}
-    {{ else }}
-      <p class="empty-state">Belum ada artikel yang dipublikasikan.</p>
     {{ end }}
-  </section>
+  </div>
 
 </div>
 {{ end }}

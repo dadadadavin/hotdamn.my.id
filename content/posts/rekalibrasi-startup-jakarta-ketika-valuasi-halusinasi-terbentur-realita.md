@@ -5,8 +5,7 @@ draft: false
 description: "Era 'bakar uang tanpa arah' resmi tamat. Kantor mewah di bilangan Senopati berganti ruko hemat, dan investor global kini menuntut hal paling purba dalam bisnis: laba bersih yang nyata."
 categories: ["Konflik & Drama"]
 tags: ["Startup", "Venture Capital", "Ekonomi Digital", "Jakarta"]
-author: "Davin"
-hotTake: "Founder yang kemarin pamer GMV triliunan kini terpaksa belajar akuntansi dasar demi bertahan dari margin nol persen."
+author: "Davin Loana"
 ---
 
 Pemandangan di distrik bisnis Sudirman dan Senopati hari ini sangat berbeda dibandingkan tiga tahun silam. Tidak ada lagi pesta peluncuran fitur berbiaya miliaran rupiah dengan artis ibukota, tidak ada lagi barista pribadi di lantai 25 gedung pencakar langit, dan yang paling mencolok: **kata 'disrupsi' sudah hampir punah dari percakapan para pemodal ventura.**

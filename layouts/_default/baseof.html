@@ -4,8 +4,6 @@
   {{ partial "head.html" . }}
 </head>
 <body class="site-body">
-  <div id="reading-progress" class="reading-progress-bar"></div>
-  
   {{ partial "header.html" . }}
 
   <main id="main-content" class="site-main">
@@ -17,10 +15,9 @@
   <div id="toast" class="toast-notification" aria-live="polite"></div>
 
   <script>
-    // Copy link helper
     function copyArticleLink(btn) {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        showToast("Tautan artikel berhasil disalin!");
+        showToast("Tautan tersalin!");
       }).catch(() => {
         showToast("Gagal menyalin tautan");
       });
@@ -33,18 +30,8 @@
       toast.classList.add("visible");
       setTimeout(() => {
         toast.classList.remove("visible");
-      }, 3000);
+      }, 2500);
     }
-
-    // Reading progress bar for single article
-    window.addEventListener("scroll", () => {
-      const bar = document.getElementById("reading-progress");
-      if (!bar) return;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight <= 0) return;
-      const progress = (window.scrollY / docHeight) * 100;
-      bar.style.width = Math.min(progress, 100) + "%";
-    });
   </script>
 </body>
 </html>
