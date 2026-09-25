@@ -1,0 +1,30 @@
+backend:
+  name: github
+  repo: davinloana/hotdamn.my.id
+  branch: main
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Artikel & Liputan"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Judul Artikel", name: "title", widget: "string" }
+      - { label: "Tanggal Terbit", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Ringkasan / Lead (SEO Description)", name: "description", widget: "text", required: true }
+      - label: "Kategori"
+        name: "categories"
+        widget: "select"
+        multiple: true
+        options: ["Tech & AI", "Politik", "Konflik & Drama", "Hot Take"]
+        default: ["Tech & AI"]
+      - { label: "Tags / Topik", name: "tags", widget: "list", default: ["Indonesia"] }
+      - { label: "Penulis", name: "author", widget: "string", default: "Redaksi hotdamn." }
+      - { label: "Hot Take / Catatan Redaksi (Opsional)", name: "hotTake", widget: "string", required: false }
+      - { label: "Gambar Utama (1200x630)", name: "featuredImage", widget: "image", required: false }
+      - { label: "Isi Artikel (Markdown)", name: "body", widget: "markdown" }

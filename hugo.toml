@@ -1,0 +1,37 @@
+baseURL = 'https://hotdamn.my.id/'
+locale = 'id-ID'
+defaultContentLanguage = 'id'
+title = 'hotdamn.'
+timeZone = 'Asia/Jakarta'
+paginate = 10
+
+[params]
+  description = 'Jurnalisme & analisis independen seputar AI, teknologi, manuver politik, dan dinamika kekuasaan di Indonesia.'
+  author = 'Redaksi hotdamn.'
+  tagline = 'Tech, Politics, & The Drama Behind Power.'
+  locale = 'id_ID'
+  geoRegion = 'ID'
+  geoPlacename = 'Indonesia'
+  contactEmail = 'redaksi@hotdamn.my.id'
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = 'github'
+    lineNos = false
+
+[outputFormats.NewsSitemap]
+  mediaType = "application/xml"
+  baseName = "news-sitemap"
+  isHTML = false
+
+[outputs]
+  home = ['HTML', 'RSS', 'NewsSitemap']
+  page = ['HTML']
+  section = ['HTML', 'RSS']

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://hotdamn.my.id/sitemap.xml
+Sitemap: https://hotdamn.my.id/news-sitemap.xml

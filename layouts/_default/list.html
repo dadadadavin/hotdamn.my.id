@@ -1,0 +1,50 @@
+{{ define "main" }}
+<div class="homepage-container">
+  
+  <header class="archive-header">
+    <span class="archive-eyebrow">ARSIP KATEGORI</span>
+    <h1 class="archive-title">{{ .Title }}</h1>
+    {{ with .Description }}
+      <p class="archive-desc">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  <section class="articles-feed">
+    {{ range $index, $post := .Pages }}
+      <article class="feed-item">
+        <div class="item-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}" class="meta-date">{{ .Date.Format "02 Jan 2006" }}</time>
+          <span class="meta-dot">·</span>
+          <span class="meta-reading-time">{{ .ReadingTime }} min baca</span>
+          {{ with .Params.hotTake }}
+            <span class="badge-hot-take">HOT TAKE</span>
+          {{ end }}
+        </div>
+
+        <h2 class="item-title">
+          <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </h2>
+
+        <p class="item-excerpt">
+          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
+        </p>
+
+        <div class="item-author-row">
+          <div class="author-avatar-small">{{ substr (default "R" .Params.author) 0 1 }}</div>
+          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+        </div>
+      </article>
+      {{ if lt $index (sub (len $.Pages) 1) }}
+        <hr class="feed-divider">
+      {{ end }}
+    {{ else }}
+      <p class="empty-state">Belum ada artikel dalam kategori ini.</p>
+    {{ end }}
+  </section>
+
+  <div class="back-nav">
+    <a href="{{ "/" | relURL }}" class="back-link">← Kembali ke Beranda</a>
+  </div>
+
+</div>
+{{ end }}

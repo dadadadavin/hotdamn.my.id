@@ -1,0 +1,68 @@
+{{ define "main" }}
+<article class="article-container">
+  
+  <header class="article-header">
+    <div class="article-meta-top">
+      {{ with .Params.categories }}
+        <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/" class="article-category-badge">{{ index . 0 }}</a>
+        <span class="meta-dot">·</span>
+      {{ end }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}" class="article-date">{{ .Date.Format "02 January 2006" }}</time>
+      <span class="meta-dot">·</span>
+      <span class="article-readtime">{{ .ReadingTime }} menit membaca</span>
+    </div>
+
+    <h1 class="article-title">{{ .Title }}</h1>
+
+    {{ with .Description }}
+      <p class="article-lead">{{ . }}</p>
+    {{ end }}
+
+    <div class="article-byline">
+      <div class="author-avatar">{{ substr (default "R" .Params.author) 0 1 }}</div>
+      <div class="author-info">
+        <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+        <span class="author-role">Investigasi & Analisis hotdamn.</span>
+      </div>
+    </div>
+  </header>
+
+  {{ with .Params.hotTake }}
+  <div class="hot-take-box">
+    <div class="hot-take-header">
+      <span class="hot-take-tag">HOT TAKE / CATATAN REDAKSI</span>
+    </div>
+    <p class="hot-take-content">{{ . }}</p>
+  </div>
+  {{ end }}
+
+  <div class="article-body">
+    {{ .Content }}
+  </div>
+
+  <footer class="article-footer">
+    {{ with .Params.tags }}
+      <div class="article-tags">
+        {{ range . }}
+          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag-pill">#{{ . }}</a>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    {{ partial "share.html" . }}
+
+    <div class="article-author-card">
+      <div class="author-avatar-large">{{ substr (default "R" .Params.author) 0 1 }}</div>
+      <div class="author-card-text">
+        <h4>{{ default .Site.Params.author .Params.author }}</h4>
+        <p>Liputan independen tentang masa depan kecerdasan buatan, politik kekuasaan, dan manuver digital di Indonesia tanpa sensor korporat.</p>
+      </div>
+    </div>
+
+    <div class="back-nav">
+      <a href="{{ "/" | relURL }}" class="back-link">← Kembali ke Beranda</a>
+    </div>
+  </footer>
+
+</article>
+{{ end }}
