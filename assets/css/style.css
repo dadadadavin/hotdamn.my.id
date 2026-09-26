@@ -578,31 +578,117 @@ a {
   color: var(--color-secondary);
 }
 
-.share-links {
-  display: flex;
-  gap: 16px;
-  align-items: center;
+.reader-category-top {
+  margin-bottom: 14px;
 }
 
-.share-links a, 
+.reader-category-top a {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.share-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  transition: all 0.15s ease;
+}
+
+.share-btn:hover {
+  background: var(--color-tag-bg);
+  border-color: #d8d8d8;
+}
+
 .copy-link-btn {
-  font-size: 0.875rem;
-  color: var(--color-secondary);
-  background: none;
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  color: var(--color-primary);
   cursor: pointer;
-  padding: 0;
+  transition: all 0.15s ease;
   font-family: inherit;
 }
 
-.share-links a:hover,
 .copy-link-btn:hover {
+  background: var(--color-tag-bg);
+  border-color: #d8d8d8;
+}
+
+.more-stories-section {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-border);
+}
+
+.more-stories-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 18px;
   color: var(--color-primary);
-  text-decoration: underline;
+}
+
+.more-stories-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .more-stories-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.more-story-item {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.more-story-headline {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.more-story-headline a {
+  color: var(--color-primary);
+}
+
+.more-story-headline a:hover {
+  opacity: 0.75;
+}
+
+.more-story-meta {
+  font-size: 0.775rem;
+  color: var(--color-muted);
 }
 
 .reader-back {
-  margin-top: 32px;
+  margin-top: 36px;
 }
 
 .reader-back a {

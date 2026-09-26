@@ -2,6 +2,12 @@
 <article class="article-reader">
   
   <header class="reader-header">
+    {{ with .Params.categories }}
+      <div class="reader-category-top">
+        <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/">{{ index . 0 }}</a>
+      </div>
+    {{ end }}
+
     <h1 class="reader-title">{{ .Title }}</h1>
     
     {{ with .Description }}
@@ -33,7 +39,7 @@
     {{ with .Params.tags }}
       <div class="reader-tags">
         {{ range . }}
-          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="reader-tag">{{ . }}</a>
+          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="reader-tag">#{{ . }}</a>
         {{ end }}
       </div>
     {{ end }}
@@ -41,17 +47,37 @@
     <div class="reader-divider"></div>
 
     <div class="reader-share-row">
-      <span class="share-title">Share this story:</span>
+      <span class="share-title">Bagikan artikel ini:</span>
       <div class="share-links">
-        <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        <a href="https://t.me/share/url?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer">Telegram</a>
-        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-        <button type="button" class="copy-link-btn" onclick="copyArticleLink(this)">Copy Link</button>
+        <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-wa">WhatsApp</a>
+        <a href="https://t.me/share/url?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-tg">Telegram</a>
+        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-x">X</a>
+        <button type="button" class="copy-link-btn" onclick="copyArticleLink(this)">Salin Tautan</button>
+      </div>
+    </div>
+
+    <!-- More Stories Section -->
+    <div class="more-stories-section">
+      <h3 class="more-stories-title">Liputan Lainnya</h3>
+      <div class="more-stories-list">
+        {{ $current := . }}
+        {{ range first 2 (where .Site.RegularPages "Permalink" "ne" $current.Permalink) }}
+          <div class="more-story-item">
+            <h4 class="more-story-headline">
+              <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </h4>
+            <div class="more-story-meta">
+              <span>{{ default .Site.Params.author .Params.author }}</span>
+              <span class="dot-separator">·</span>
+              <span>{{ .ReadingTime }} min read</span>
+            </div>
+          </div>
+        {{ end }}
       </div>
     </div>
 
     <div class="reader-back">
-      <a href="{{ "/" | relURL }}">← Back to all stories</a>
+      <a href="{{ "/" | relURL }}">← Kembali ke Beranda</a>
     </div>
   </footer>
 
