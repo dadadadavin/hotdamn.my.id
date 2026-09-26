@@ -1,83 +1,124 @@
 {{ define "main" }}
-<article class="article-reader">
+<div class="page-container">
   
-  <header class="reader-header">
-    {{ with .Params.categories }}
-      <div class="reader-category-top">
-        <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/">{{ index . 0 }}</a>
-      </div>
-    {{ end }}
+  <div class="content-grid">
+    <!-- Left Column: The Article Reading Experience -->
+    <main class="feed-column">
+      <article class="article-reader">
+        
+        <header class="reader-header">
+          {{ with .Params.categories }}
+            <div class="reader-category-top">
+              <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/">{{ index . 0 }}</a>
+            </div>
+          {{ end }}
 
-    <h1 class="reader-title">{{ .Title }}</h1>
-    
-    {{ with .Description }}
-      <p class="reader-subtitle">{{ . }}</p>
-    {{ end }}
+          <h1 class="reader-title">{{ .Title }}</h1>
+          
+          {{ with .Description }}
+            <p class="reader-subtitle">{{ . }}</p>
+          {{ end }}
 
-    <div class="reader-author-bar">
-      <div class="author-avatar">{{ substr (default "R" .Params.author) 0 1 }}</div>
-      <div class="author-details">
-        <div class="author-name-row">
-          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
-        </div>
-        <div class="author-meta-row">
-          <span>{{ .ReadingTime }} min read</span>
-          <span class="meta-separator">·</span>
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <div class="reader-body">
-    {{ .Content }}
-  </div>
-
-  <footer class="reader-footer">
-    {{ with .Params.tags }}
-      <div class="reader-tags">
-        {{ range . }}
-          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="reader-tag">#{{ . }}</a>
-        {{ end }}
-      </div>
-    {{ end }}
-
-    <div class="reader-divider"></div>
-
-    <div class="reader-share-row">
-      <span class="share-title">Bagikan artikel ini:</span>
-      <div class="share-links">
-        <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-wa">WhatsApp</a>
-        <a href="https://t.me/share/url?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-tg">Telegram</a>
-        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-x">X</a>
-        <button type="button" class="copy-link-btn" onclick="copyArticleLink(this)">Salin Tautan</button>
-      </div>
-    </div>
-
-    <!-- More Stories Section -->
-    <div class="more-stories-section">
-      <h3 class="more-stories-title">Liputan Lainnya</h3>
-      <div class="more-stories-list">
-        {{ $current := . }}
-        {{ range first 2 (where .Site.RegularPages "Permalink" "ne" $current.Permalink) }}
-          <div class="more-story-item">
-            <h4 class="more-story-headline">
-              <a href="{{ .Permalink }}">{{ .Title }}</a>
-            </h4>
-            <div class="more-story-meta">
-              <span>{{ default .Site.Params.author .Params.author }}</span>
-              <span class="dot-separator">·</span>
-              <span>{{ .ReadingTime }} min read</span>
+          <div class="reader-author-bar">
+            <div class="author-avatar">{{ substr (default "R" .Params.author) 0 1 }}</div>
+            <div class="author-details">
+              <div class="author-name-row">
+                <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+              </div>
+              <div class="author-meta-row">
+                <span>{{ .ReadingTime }} min read</span>
+                <span class="meta-separator">·</span>
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+              </div>
             </div>
           </div>
-        {{ end }}
+        </header>
+
+        <div class="reader-body">
+          {{ .Content }}
+        </div>
+
+        <footer class="reader-footer">
+          {{ with .Params.tags }}
+            <div class="reader-tags">
+              {{ range . }}
+                <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="reader-tag">#{{ . }}</a>
+              {{ end }}
+            </div>
+          {{ end }}
+
+          <div class="reader-share-row">
+            <span class="share-title">Bagikan artikel ini:</span>
+            <div class="share-links">
+              <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-wa">WhatsApp</a>
+              <a href="https://t.me/share/url?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-tg">Telegram</a>
+              <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn share-x">X</a>
+              <button type="button" class="copy-link-btn" onclick="copyArticleLink(this)">Salin Tautan</button>
+            </div>
+          </div>
+
+          <div class="reader-back">
+            <a href="{{ "/" | relURL }}">← Kembali ke Beranda</a>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+
+    <!-- Right Column: Sticky Editorial Sidebar -->
+    <aside class="sidebar-column">
+      <div class="sidebar-sticky">
+        
+        <!-- Other Stories / Baca Selanjutnya -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Liputan Terkait</h3>
+          <div class="sidebar-stories-list">
+            {{ $current := . }}
+            {{ range first 3 (where .Site.RegularPages "Permalink" "ne" $current.Permalink) }}
+              <div class="sidebar-story-item">
+                <a href="{{ .Permalink }}" class="sidebar-story-link">
+                  <h4 class="sidebar-story-title">{{ .Title }}</h4>
+                </a>
+                <div class="sidebar-story-meta">
+                  <span>{{ .ReadingTime }} min read</span>
+                  <span class="dot-separator">·</span>
+                  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+                </div>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- Tip Box -->
+        <div class="sidebar-widget tip-box">
+          <h3 class="widget-title">Kirim Bocoran Tip</h3>
+          <p class="widget-text">Punya dokumen investigasi, informasi orang dalam, atau data rahasia? Hubungi tim redaksi secara anonim dan aman.</p>
+          <a href="mailto:redaksi@hotdamn.my.id" class="tip-button">redaksi@hotdamn.my.id</a>
+        </div>
+
+        <!-- Topik Populer -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Topik Populer</h3>
+          <div class="topic-cloud">
+            <a href="{{ "/tags/kecerdasan-buatan/" | relURL }}" class="topic-pill">Kecerdasan Buatan</a>
+            <a href="{{ "/tags/infrastruktur/" | relURL }}" class="topic-pill">Infrastruktur</a>
+            <a href="{{ "/tags/startup/" | relURL }}" class="topic-pill">Startup</a>
+            <a href="{{ "/tags/pemilu/" | relURL }}" class="topic-pill">Pemilu</a>
+            <a href="{{ "/tags/data-privasi/" | relURL }}" class="topic-pill">Data Privasi</a>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <a href="{{ "/tentang/" | relURL }}">Tentang</a>
+          <a href="{{ "/index.xml" | relURL }}">RSS</a>
+          <a href="{{ "/admin/" | relURL }}">Admin</a>
+          <p class="sidebar-copyright">© {{ now.Format "2006" }} hotdamn.my.id</p>
+        </div>
+
       </div>
-    </div>
+    </aside>
 
-    <div class="reader-back">
-      <a href="{{ "/" | relURL }}">← Kembali ke Beranda</a>
-    </div>
-  </footer>
+  </div>
 
-</article>
+</div>
 {{ end }}

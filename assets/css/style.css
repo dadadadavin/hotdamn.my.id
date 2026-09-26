@@ -71,16 +71,6 @@ a {
   justify-content: space-between;
 }
 
-/* Align header container directly with the reading column on article pages */
-body.page-article .header-container {
-  max-width: var(--width-reader);
-  padding: 0 24px;
-}
-
-body.page-article .footer-inner {
-  max-width: var(--width-reader);
-  padding: 0 24px;
-}
 
 .header-brand {
   display: flex;
@@ -339,6 +329,58 @@ body.page-article .footer-inner {
   text-decoration: underline;
 }
 
+.sidebar-stories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-story-item {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar-story-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.sidebar-story-title {
+  font-size: 0.925rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+  transition: opacity 0.15s ease;
+}
+
+.sidebar-story-title:hover {
+  opacity: 0.7;
+}
+
+.sidebar-story-meta {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.tip-box {
+  background: #fffbfb;
+  border-color: #f7dede;
+}
+
+.tip-button {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-top: 4px;
+  word-break: break-all;
+}
+
+.tip-button:hover {
+  text-decoration: underline;
+}
+
 .topic-cloud {
   display: flex;
   flex-wrap: wrap;
@@ -422,9 +464,9 @@ body.page-article .footer-inner {
    Article Reader View (720px Centered)
    -------------------------------------------------------------------------- */
 .article-reader {
-  max-width: var(--width-reader);
-  margin: 48px auto 80px;
-  padding: 0 24px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   width: 100%;
 }
 
