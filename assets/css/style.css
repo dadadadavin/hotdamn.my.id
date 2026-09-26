@@ -1,5 +1,5 @@
 /* ==========================================================================
-   hotdamn.my.id — Publication Design System
+   hotdamn.my.id — Publication Master Stylesheet
    ========================================================================== */
 
 *, *::before, *::after {
@@ -11,18 +11,20 @@
 :root {
   --color-canvas: #ffffff;
   --color-primary: #191919;
-  --color-secondary: #6b6b6b;
-  --color-muted: #8a8a8a;
-  --color-border: #ebebeb;
+  --color-secondary: #555555;
+  --color-muted: #767676;
+  --color-border: #f0f0f0;
   --color-border-dark: #191919;
-  --color-tag-bg: #f4f4f4;
+  --color-tag-bg: #f2f2f2;
+  --color-tag-hover: #e8e8e8;
+  --color-card-bg: #fafafa;
   --color-accent: #e11d48;
   
-  --font-logo: 'Playwrite BE WAL Guides', cursive, -apple-system, sans-serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-logo: 'Playwrite BE WAL Guides', cursive;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-reader: 'Newsreader', Georgia, Cambria, serif;
 
-  --width-site: 1180px;
+  --width-site: 1140px;
   --width-feed: 720px;
   --width-reader: 720px;
 }
@@ -49,7 +51,7 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   Header (Wide 1180px publication header)
+   Header (1140px wide publication header)
    -------------------------------------------------------------------------- */
 .site-header {
   border-bottom: 1px solid var(--color-border);
@@ -63,7 +65,7 @@ a {
   max-width: var(--width-site);
   margin: 0 auto;
   padding: 0 24px;
-  height: 68px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,12 +78,12 @@ a {
 
 .site-logo {
   font-family: var(--font-logo);
-  font-size: 1.95rem;
+  font-size: 2.1rem;
   line-height: 1;
   color: var(--color-primary);
-  letter-spacing: -0.02em;
-  display: inline-flex;
-  align-items: baseline;
+  letter-spacing: -0.01em;
+  display: inline-block;
+  padding: 4px 0;
 }
 
 .logo-dot {
@@ -106,19 +108,19 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   Main Page Layout (Balanced 2-Column Grid)
+   Main Page Layout (Desktop 2-Column Grid)
    -------------------------------------------------------------------------- */
 .page-container {
   max-width: var(--width-site);
   margin: 0 auto;
-  padding: 32px 24px 80px;
+  padding: 40px 24px 80px;
   width: 100%;
 }
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 72px;
   align-items: start;
 }
 
@@ -142,18 +144,19 @@ a {
 
 .category-tabs {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   border-bottom: 1px solid var(--color-border);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .tab-link {
   font-size: 0.9rem;
-  color: var(--color-secondary);
-  padding-bottom: 12px;
+  color: var(--color-muted);
+  padding-bottom: 14px;
   border-bottom: 2px solid transparent;
   transition: all 0.15s ease;
   outline: none;
+  user-select: none;
 }
 
 .tab-link:focus, 
@@ -172,7 +175,7 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   Story Entries
+   Story Entries in Feed
    -------------------------------------------------------------------------- */
 .stories-list {
   display: flex;
@@ -180,7 +183,7 @@ a {
 }
 
 .story-entry {
-  padding: 20px 0;
+  padding: 24px 0;
 }
 
 .story-meta-top {
@@ -188,13 +191,13 @@ a {
   align-items: center;
   gap: 8px;
   font-size: 0.8125rem;
-  color: var(--color-secondary);
+  color: var(--color-muted);
   margin-bottom: 8px;
 }
 
 .author-circle {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--color-primary);
   color: #ffffff;
@@ -207,20 +210,20 @@ a {
 
 .author-name {
   color: var(--color-primary);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .dot-separator {
-  color: var(--color-muted);
+  color: #c0c0c0;
 }
 
 .story-headline {
   font-family: var(--font-sans);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.015em;
-  margin-bottom: 6px;
+  margin: 8px 0 6px;
   color: var(--color-primary);
 }
 
@@ -230,13 +233,13 @@ a {
 }
 
 .story-headline a:hover {
-  opacity: 0.75;
+  opacity: 0.7;
 }
 
 .story-summary {
   font-size: 0.95rem;
   color: var(--color-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
   margin-bottom: 14px;
 }
 
@@ -245,7 +248,7 @@ a {
   align-items: center;
   gap: 8px;
   font-size: 0.8125rem;
-  color: var(--color-secondary);
+  color: var(--color-muted);
 }
 
 .category-badge {
@@ -255,14 +258,15 @@ a {
   border-radius: 100px;
   font-size: 0.75rem;
   font-weight: 500;
+  transition: background-color 0.15s ease;
 }
 
 .category-badge:hover {
-  background-color: #e5e5e5;
+  background-color: var(--color-tag-hover);
 }
 
 .read-duration {
-  color: var(--color-secondary);
+  color: var(--color-muted);
   font-size: 0.8125rem;
 }
 
@@ -274,12 +278,12 @@ a {
 }
 
 .no-posts {
-  color: var(--color-secondary);
+  color: var(--color-muted);
   padding: 40px 0;
 }
 
 /* --------------------------------------------------------------------------
-   Sidebar Column (Desktop)
+   Sidebar Column (Desktop 340px)
    -------------------------------------------------------------------------- */
 .sidebar-column {
   width: 100%;
@@ -290,28 +294,28 @@ a {
   top: 96px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 28px;
 }
 
 .sidebar-widget {
-  background: #ffffff;
+  background: var(--color-card-bg);
   padding: 24px;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
 .widget-title {
   font-size: 0.95rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: var(--color-primary);
 }
 
 .widget-text {
   font-size: 0.875rem;
   color: var(--color-secondary);
-  line-height: 1.55;
-  margin-bottom: 12px;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
 .widget-links a {
@@ -332,15 +336,17 @@ a {
 
 .topic-pill {
   font-size: 0.8125rem;
-  background: var(--color-tag-bg);
+  background: #ffffff;
   color: var(--color-primary);
+  border: 1px solid var(--color-border);
   padding: 6px 12px;
   border-radius: 100px;
   transition: all 0.15s ease;
 }
 
 .topic-pill:hover {
-  background: #e5e5e5;
+  background: var(--color-tag-bg);
+  border-color: #d8d8d8;
 }
 
 .sidebar-footer {
@@ -349,6 +355,7 @@ a {
   gap: 12px;
   font-size: 0.8125rem;
   color: var(--color-muted);
+  padding-left: 4px;
 }
 
 .sidebar-footer a {
@@ -362,15 +369,16 @@ a {
 .sidebar-copyright {
   width: 100%;
   margin-top: 4px;
+  color: #a0a0a0;
 }
 
 /* --------------------------------------------------------------------------
-   Archive Headers
+   Archive Header Box
    -------------------------------------------------------------------------- */
 .archive-header-box {
-  padding-bottom: 16px;
+  padding-bottom: 18px;
   border-bottom: 1px solid var(--color-border);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .archive-label {
@@ -381,13 +389,13 @@ a {
 }
 
 .archive-heading {
-  font-size: 1.85rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-top: 4px;
 }
 
 .archive-back {
-  margin-top: 32px;
+  margin-top: 36px;
 }
 
 .archive-back a {
@@ -400,11 +408,11 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   Article Reader View (Focused 720px Container)
+   Article Reader View (720px Centered)
    -------------------------------------------------------------------------- */
 .article-reader {
   max-width: var(--width-reader);
-  margin: 40px auto 80px;
+  margin: 48px auto 80px;
   padding: 0 24px;
   width: 100%;
 }
@@ -420,7 +428,7 @@ a {
   line-height: 1.25;
   letter-spacing: -0.025em;
   color: var(--color-primary);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 @media (min-width: 640px) {
@@ -445,13 +453,13 @@ a {
 .reader-author-bar .author-avatar {
   width: 44px;
   height: 44px;
+  font-size: 1.1rem;
   border-radius: 50%;
   background: var(--color-primary);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
   font-weight: 700;
 }
 
@@ -470,7 +478,7 @@ a {
   display: flex;
   gap: 6px;
   font-size: 0.8125rem;
-  color: var(--color-secondary);
+  color: var(--color-muted);
 }
 
 .reader-divider {
@@ -628,7 +636,7 @@ a {
 
 .footer-logo {
   font-family: var(--font-logo);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   color: var(--color-primary);
 }
 
@@ -648,11 +656,11 @@ a {
 
 .copyright {
   font-size: 0.8125rem;
-  color: var(--color-secondary);
+  color: var(--color-muted);
   width: 100%;
 }
 
-/* Toast */
+/* Toast Notification */
 .toast-notification {
   position: fixed;
   bottom: 24px;
