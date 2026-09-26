@@ -1,40 +1,60 @@
 {{ define "main" }}
-<div class="main-wrapper">
+<div class="page-container">
+  
+  <div class="content-grid">
+    <main class="feed-column">
+      
+      <div class="archive-header-box">
+        <span class="archive-label">KATEGORI</span>
+        <h1 class="archive-heading">{{ .Title }}</h1>
+      </div>
 
-  <div class="archive-headline">
-    <h1>{{ .Title }}</h1>
-  </div>
+      <section class="stories-list">
+        {{ range $index, $post := .Pages }}
+          <article class="story-entry">
+            <div class="story-meta-top">
+              <span class="author-circle">{{ substr (default "D" .Params.author) 0 1 }}</span>
+              <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+              <span class="dot-separator">·</span>
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+            </div>
 
-  <div class="stories-stream">
-    {{ range $index, $post := .Pages }}
-      <article class="story-item">
-        <div class="story-author-meta">
-          <div class="author-avatar">{{ substr (default "D" .Params.author) 0 1 }}</div>
-          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
-          <span class="meta-separator">·</span>
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+            <h2 class="story-headline">
+              <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </h2>
+
+            <p class="story-summary">
+              {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
+            </p>
+
+            <div class="story-meta-bottom">
+              <span class="read-duration">{{ .ReadingTime }} min read</span>
+            </div>
+          </article>
+          {{ if lt $index (sub (len $.Pages) 1) }}
+            <hr class="story-separator">
+          {{ end }}
+        {{ else }}
+          <p class="no-posts">Belum ada liputan dalam kategori ini.</p>
+        {{ end }}
+      </section>
+
+      <div class="archive-back">
+        <a href="{{ "/" | relURL }}">← Kembali ke Beranda</a>
+      </div>
+    </main>
+
+    <aside class="sidebar-column">
+      <div class="sidebar-sticky">
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Tentang hotdamn.</h3>
+          <p class="widget-text">Jurnalisme & analisis independen seputar AI, infrastruktur teknologi, manuver politik kekuasaan, dan konflik di Indonesia.</p>
+          <div class="widget-links">
+            <a href="{{ "/tentang/" | relURL }}">Selengkapnya →</a>
+          </div>
         </div>
-
-        <h2 class="story-title">
-          <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </h2>
-
-        <p class="story-snippet">
-          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 150 }}{{ end }}
-        </p>
-
-        <div class="story-footer-meta">
-          <span class="story-readtime">{{ .ReadingTime }} min read</span>
-        </div>
-      </article>
-      {{ if lt $index (sub (len $.Pages) 1) }}
-        <div class="story-divider"></div>
-      {{ end }}
-    {{ end }}
-  </div>
-
-  <div class="reader-back" style="margin-top: 32px;">
-    <a href="{{ "/" | relURL }}">← Back to all stories</a>
+      </div>
+    </aside>
   </div>
 
 </div>

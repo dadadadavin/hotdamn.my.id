@@ -1,46 +1,88 @@
 {{ define "main" }}
-<div class="main-wrapper">
+<div class="page-container">
+  
+  <div class="content-grid">
+    <!-- Left: Main Stories Feed -->
+    <main class="feed-column">
+      
+      <!-- Category Tabs (No blue outline, clean underline) -->
+      <nav class="category-tabs" aria-label="Tab Kategori">
+        <a href="{{ "/" | relURL }}" class="tab-link active">Terkini</a>
+        <a href="{{ "/categories/tech-ai/" | relURL }}" class="tab-link">Tech & AI</a>
+        <a href="{{ "/categories/politik/" | relURL }}" class="tab-link">Politik</a>
+        <a href="{{ "/categories/konflik-drama/" | relURL }}" class="tab-link">Konflik</a>
+      </nav>
 
-  <!-- Minimal Tab Bar (Medium style) -->
-  <div class="tabs-nav">
-    <a href="{{ "/" | relURL }}" class="tab-item active">Terkini</a>
-    <a href="{{ "/categories/tech-ai/" | relURL }}" class="tab-item">Tech & AI</a>
-    <a href="{{ "/categories/politik/" | relURL }}" class="tab-item">Politik</a>
-    <a href="{{ "/categories/konflik-drama/" | relURL }}" class="tab-item">Konflik</a>
-  </div>
+      <!-- Stories Stream -->
+      <section class="stories-list">
+        {{ $posts := where .Site.RegularPages "Type" "posts" }}
+        {{ range $index, $post := $posts }}
+          <article class="story-entry">
+            <div class="story-meta-top">
+              <span class="author-circle">{{ substr (default "D" .Params.author) 0 1 }}</span>
+              <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
+              <span class="dot-separator">·</span>
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+            </div>
 
-  <!-- Stories Stream -->
-  <div class="stories-stream">
-    {{ $posts := where .Site.RegularPages "Type" "posts" }}
-    {{ range $index, $post := $posts }}
-      <article class="story-item">
-        <div class="story-author-meta">
-          <div class="author-avatar">{{ substr (default "D" .Params.author) 0 1 }}</div>
-          <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
-          <span class="meta-separator">·</span>
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
-        </div>
+            <h2 class="story-headline">
+              <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </h2>
 
-        <h2 class="story-title">
-          <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </h2>
+            <p class="story-summary">
+              {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
+            </p>
 
-        <p class="story-snippet">
-          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 150 }}{{ end }}
-        </p>
-
-        <div class="story-footer-meta">
-          {{ with .Params.categories }}
-            <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/" class="story-tag">{{ index . 0 }}</a>
-            <span class="meta-separator">·</span>
+            <div class="story-meta-bottom">
+              {{ with .Params.categories }}
+                <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/" class="category-badge">{{ index . 0 }}</a>
+                <span class="dot-separator">·</span>
+              {{ end }}
+              <span class="read-duration">{{ .ReadingTime }} min read</span>
+            </div>
+          </article>
+          {{ if lt $index (sub (len $posts) 1) }}
+            <hr class="story-separator">
           {{ end }}
-          <span class="story-readtime">{{ .ReadingTime }} min read</span>
+        {{ else }}
+          <p class="no-posts">Belum ada liputan yang diterbitkan.</p>
+        {{ end }}
+      </section>
+    </main>
+
+    <!-- Right: Publication Sidebar (Desktop) -->
+    <aside class="sidebar-column">
+      <div class="sidebar-sticky">
+        
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Tentang hotdamn.</h3>
+          <p class="widget-text">Jurnalisme & analisis independen seputar AI, infrastruktur teknologi, manuver politik kekuasaan, dan konflik di Indonesia.</p>
+          <div class="widget-links">
+            <a href="{{ "/tentang/" | relURL }}">Selengkapnya →</a>
+          </div>
         </div>
-      </article>
-      {{ if lt $index (sub (len $posts) 1) }}
-        <div class="story-divider"></div>
-      {{ end }}
-    {{ end }}
+
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Topik Pilihan</h3>
+          <div class="topic-cloud">
+            <a href="{{ "/tags/kecerdasan-buatan/" | relURL }}" class="topic-pill">Kecerdasan Buatan</a>
+            <a href="{{ "/tags/infrastruktur/" | relURL }}" class="topic-pill">Infrastruktur</a>
+            <a href="{{ "/tags/startup/" | relURL }}" class="topic-pill">Startup</a>
+            <a href="{{ "/tags/pemilu/" | relURL }}" class="topic-pill">Pemilu</a>
+            <a href="{{ "/tags/koalisi/" | relURL }}" class="topic-pill">Koalisi</a>
+            <a href="{{ "/tags/data-privasi/" | relURL }}" class="topic-pill">Data Privasi</a>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <a href="{{ "/tentang/" | relURL }}">Tentang</a>
+          <a href="{{ "/index.xml" | relURL }}">RSS</a>
+          <a href="{{ "/admin/" | relURL }}">Admin</a>
+          <p class="sidebar-copyright">© {{ now.Format "2006" }} hotdamn.my.id</p>
+        </div>
+
+      </div>
+    </aside>
   </div>
 
 </div>
