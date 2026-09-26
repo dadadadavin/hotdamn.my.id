@@ -33,10 +33,10 @@
 <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 
-<!-- Google Fonts: Playwrite BE WAL Guides (for logo) + Plus Jakarta Sans + Newsreader -->
+<!-- Google Fonts: Playwrite BE WAL (Clean Logo without notebook lines) + Plus Jakarta Sans + Newsreader -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Playwrite+BE+WAL+Guides&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Playwrite+BE+WAL:wght@400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- CSS with Cache Busting + Direct Inline Injection to prevent stale caching -->
 {{ $css := resources.Get "css/style.css" }}
