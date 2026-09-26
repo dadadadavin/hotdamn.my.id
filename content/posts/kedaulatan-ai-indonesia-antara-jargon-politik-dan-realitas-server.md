@@ -5,7 +5,7 @@ draft: false
 description: "Di atas panggung seminar, para pejabat berbicara lantang soal 'Kedaulatan AI Nasional'. Namun di balik layar, 99% pipeline LLM lokal masih bergantung penuh pada cluster GPU di Virginia dan Singapura."
 categories: ["Tech & AI"]
 tags: ["Kecerdasan Buatan", "Kebijakan Publik", "Infrastruktur", "Startup"]
-author: "Davin Loana"
+author: "Redaksi hotdamn."
 ---
 
 Di setiap forum teknologi Jakarta beberapa bulan terakhir, ada satu frasa sakti yang tidak pernah absen diucapkan oleh para pembuat kebijakan: **"Kedaulatan AI Nasional"**. 

@@ -15,7 +15,7 @@
     {{ end }}
 
     <div class="reader-author-bar">
-      <div class="author-avatar">{{ substr (default "D" .Params.author) 0 1 }}</div>
+      <div class="author-avatar">{{ substr (default "R" .Params.author) 0 1 }}</div>
       <div class="author-details">
         <div class="author-name-row">
           <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>

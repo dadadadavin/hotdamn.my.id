@@ -5,6 +5,6 @@ draft: false
 description: ""
 categories: ["Tech & AI"]
 tags: ["Indonesia"]
-author: "Davin Loana"
+author: "Redaksi hotdamn."
 featuredImage: ""
 ---

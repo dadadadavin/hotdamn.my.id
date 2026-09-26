@@ -19,7 +19,7 @@
         {{ range $index, $post := $posts }}
           <article class="story-entry">
             <div class="story-meta-top">
-              <span class="author-circle">{{ substr (default "D" .Params.author) 0 1 }}</span>
+              <span class="author-circle">{{ substr (default "R" .Params.author) 0 1 }}</span>
               <span class="author-name">{{ default .Site.Params.author .Params.author }}</span>
               <span class="dot-separator">·</span>
               <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>

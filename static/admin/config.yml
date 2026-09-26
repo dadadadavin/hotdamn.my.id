@@ -24,6 +24,6 @@ collections:
         options: ["Tech & AI", "Politik", "Konflik"]
         default: ["Tech & AI"]
       - { label: "Tags / Topik", name: "tags", widget: "list", default: ["Indonesia"] }
-      - { label: "Penulis", name: "author", widget: "string", default: "Davin Loana" }
+      - { label: "Penulis", name: "author", widget: "string", default: "Redaksi hotdamn." }
       - { label: "Gambar Utama (1200x630)", name: "featuredImage", widget: "image", required: false }
       - { label: "Isi Artikel (Markdown)", name: "body", widget: "markdown" }
