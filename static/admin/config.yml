@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: davinloana/hotdamn.my.id
+  repo: dadadadavin/hotdamn.my.id
   branch: main
 
 media_folder: "static/images/uploads"
