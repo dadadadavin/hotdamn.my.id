@@ -3,7 +3,8 @@ locale = 'id-ID'
 defaultContentLanguage = 'id'
 title = 'hotdamn.'
 timeZone = 'Asia/Jakarta'
-paginate = 10
+[pagination]
+  pagerSize = 10
 
 [params]
   description = 'Jurnalisme & analisis independen seputar AI, teknologi, manuver politik, dan dinamika kekuasaan di Indonesia.'
