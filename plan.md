@@ -1,11 +1,12 @@
-# Architecture & Implementation Plan: hotdamn.my.id
+# Master Architecture & Production Blueprint: hotdamn.my.id
 
 > **Domain:** [hotdamn.my.id](https://hotdamn.my.id)  
-> **Niche:** Indonesian Tech & AI, Politics, National Controversies, Spicy Takes & High-Engagement Commentary  
-> **Aesthetic Target:** Medium-inspired (Clean white canvas, crisp typography, distraction-free reading, not sloppy)  
-> **Stack:** Hugo (Go-powered SSG) + Decap/Sveltia CMS (Private Web Admin) + Flat Markdown Database  
-> **Hosting & Edge:** Cloudflare DNS (Edge Caching / DDoS / SSL) + Vercel (Automated CI/CD & Deployments)  
-> **Cost:** \$0 / month (100% Free Tier, Zero Server Maintenance)
+> **Brand & Niche:** Independent Indonesian Journalism & Sharp Commentary on Tech & AI, Politics, Scandals, and Power Dynamics.  
+> **Visual Identity:** Modern 2-Column Newsroom Editorial (*Wired* / *The Verge* meets *Medium* readability) with clean signature handwriting logo.  
+> **Core Engine:** Hugo (Go-powered Static Engine) + Flat Markdown Database  
+> **Editorial Panel:** Private Git CMS at `/admin` (Sveltia / Decap CMS)  
+> **Hosting & Edge Delivery:** Vercel (Hobby Free Tier) + Cloudflare Free DNS (Singapore/Jakarta Edge Caching)  
+> **Running Cost:** \$0 / month (Zero Server Maintenance, Zero Database Downtime)
 
 ---
 
@@ -13,166 +14,161 @@
 
 ```mermaid
 flowchart TD
-    subgraph Editor["Editorial Workflow (Private Admin)"]
-        A["Author / Editor"] -->|Visits /admin| B["Sveltia / Decap CMS"]
-        B -->|GitHub OAuth Auth| C["Git Repository (GitHub)"]
-        B -->|Commits Markdown + Images| C
+    subgraph Editorial["1. Editorial Workflow"]
+        A["Editor / Redaksi"] -->|Opens /admin| B["Sveltia CMS (Web Panel)"]
+        B -->|Commits Markdown + Images| C["GitHub Repository"]
     end
 
-    subgraph BuildPipeline["Build & Deploy Pipeline"]
-        C -->|Webhook Trigger| D["Vercel Build Engine"]
-        D -->|Compiles in < 500ms via Go| E["Hugo Static Binary"]
-        E -->|Generates HTML + XML + RSS| F["Static Asset Output"]
+    subgraph BuildEngine["2. Automated Build Engine"]
+        C -->|Git Push Webhook| D["Vercel Build Environment"]
+        D -->|Compiles in < 30ms via Hugo (Go)| E["Static HTML + XML + RSS + CSS"]
     end
 
-    subgraph EdgeDelivery["Edge & CDN Layer (ID Optimization)"]
-        F --> G["Vercel Global Edge (Singapore POP)"]
-        G --> H["Cloudflare Edge Proxy (Jakarta/Singapore POP)"]
+    subgraph EdgeCDN["3. Edge Delivery (Indonesia Latency Optimization)"]
+        E --> F["Vercel Global Edge (Singapore POP)"]
+        F --> G["Cloudflare Edge Proxy (Jakarta/Singapore POP)"]
     end
 
-    subgraph Readers["Indonesian Audience & Search Engines"]
-        H -->|Sub-100ms TTFB| I["Mobile Readers (Telkomsel, Indosat, XL)"]
-        H -->|News Sitemap + JSON-LD| J["Google News & Google Search"]
-        H -->|1-Click Share & Rich Preview| K["WhatsApp & Telegram Groups"]
+    subgraph Readers["4. Distribution Channels"]
+        G -->|Sub-100ms TTFB| H["Indonesian Readers (Mobile & Desktop)"]
+        G -->|News Sitemap + JSON-LD| I["Google News & Google Search"]
+        G -->|1-Click Viral Sharing| J["WhatsApp & Telegram Groups"]
     end
 ```
 
 ---
 
-## 2. Technology Stack Rationale
+## 2. Approved Visual & UX Specifications
 
-| Component | Choice | Rationale |
-| :--- | :--- | :--- |
-| **Generator Engine** | **Hugo (Extended, Go-based)** | Blazing fast builds (< 1ms per page), written in Go, rock-solid stability, zero runtime vulnerabilities, native Vercel build support. |
-| **Content Database** | **Flat-file Markdown (`/content/posts/*.md`)** | Zero database downtime, zero SQL injection, free version control, readable and editable anywhere. |
-| **Editorial CMS** | **Sveltia / Decap CMS (`/static/admin`)** | Private web-based CMS with rich text formatting, draft/publish workflow, and image upload. Direct git commits to GitHub. |
-| **Hosting & CI/CD** | **Vercel (Hobby Free Tier)** | Native Git integration, instant edge deploys, Singapore edge POP, zero config SSL. |
-| **DNS & Security** | **Cloudflare Free** | DNS proxy, DDoS mitigation, automatic HTTP/3, Jakarta edge cache, Web Analytics. |
-| **Styling** | **Custom Tailwind CSS / Clean Semantic CSS** | Lightweight Medium-style layout, ultra-fast initial paint (LCP < 0.8s), zero bloat. |
+### 2.1. Brand Identity & Typography
+- **Masthead Logo:** **`Playwrite BE WAL`** (Google Fonts) — distinctive cursive signature script rendered cleanly without notebook guideline artifacts, accented by a crimson dot (`.`).
+- **UI & Navigation:** **`Plus Jakarta Sans`** — Indonesian-designed sans-serif for sharp legibility on mobile screens (Telkomsel, Indosat, XL).
+- **Article Reading Prose:** **`Newsreader`** / **`Charter`** — high-comfort editorial serif set at `20px` (desktop) and `18px` (mobile) with `1.8` line-height.
+- **Palette:**
+  - Background Canvas: `#FFFFFF` (Pure white)
+  - Card & Widget Surfaces: `#FAFAFA`
+  - Primary Text: `#191919` (High contrast, softer than pure `#000`)
+  - Secondary & Metadata Text: `#555555` / `#767676`
+  - Subtle Dividers: `#F0F0F0`
+  - Accent Color: `#E11D48` (Crimson) for category labels and logo period.
+
+### 2.2. Balanced 2-Column Newsroom Grid
+To eliminate empty widescreen void and provide a balanced reading experience:
+- **Global Container Width:** `1140px` centered with `24px` horizontal padding.
+- **Left Column (`720px`):**
+  - **Homepage:** Clean category tab bar (`Terkini`, `Tech & AI`, `Politik`, `Konflik`) with subtle underline active states, followed by story feed cards (Author avatar, date, headline, summary excerpt, category tag, and read duration).
+  - **Article Page:** Clean category breadcrumb, prominent headline, 2-line subtitle lead, author metadata row (`Redaksi hotdamn. · X min read · Date`), story prose with pull quotes, topic tags, and 1-click share buttons.
+- **Right Column (`340px` Sticky Editorial Sidebar):**
+  - **Liputan Terkait:** Contextual cards showcasing other active stories to retain reader engagement.
+  - **Kirim Bocoran Tip:** Dedicated whistleblower/insider tip box with one-click email link to `redaksi@hotdamn.my.id`.
+  - **Topik Populer:** Clean pill tags for instant category exploration (`Kecerdasan Buatan`, `Infrastruktur`, `Startup`, `Pemilu`, `Data Privasi`).
+  - **Sidebar Footer:** Quick links (`Tentang`, `RSS`, `Admin`) and copyright metadata.
+  - **Sticky Behavior:** Pins smoothly alongside the reading column as readers scroll down long-form pieces.
 
 ---
 
-## 3. SEO & GEO Master Strategy (Indonesia-First)
+## 3. SEO & GEO Master Infrastructure (Indonesia-First)
 
-### 3.1. Indonesian GEO Signals
-- **Domain ccTLD:** `.my.id` automatically signals Indonesian geographic intent to search engines.
-- **Language Declarations:**
+### 3.1. Indonesian Geographic Signals
+- **Domain ccTLD:** `.my.id` automatically signals Indonesian geographic intent to Google and Bing.
+- **Locale & Language Headers:**
   - `<html lang="id">`
-  - `<meta http-equiv="content-language" content="id">`
-  - OpenGraph locale: `<meta property="og:locale" content="id_ID">`
-- **Regional Meta:**
+  - `<meta http-equiv="content-language" content="id-ID">`
   - `<meta name="geo.region" content="ID">`
   - `<meta name="geo.placename" content="Indonesia">`
+  - `<meta property="og:locale" content="id_ID">`
 
-### 3.2. Structured Data (JSON-LD)
-Every article automatically emits valid Schema.org markup:
-- **`NewsArticle` / `BlogPosting`**:
-  - `headline`, `description`, `datePublished`, `dateModified` (ISO 8601 with `+07:00` WIB offset)
-  - `author` (Person with name, profile link)
-  - `publisher` (Organization `hotdamn.my.id` with logo)
-  - `image` (1200x630 high-res banner)
-  - `mainEntityOfPage` canonical URL
-- **`BreadcrumbList`**: For clear navigation hierarchy in Google SERP.
+### 3.2. Google News & Search Indexing
+- **Google News XML Sitemap:** Automatically generated at [`/news-sitemap.xml`](https://hotdamn.my.id/news-sitemap.xml) with Google-compliant `<news:news>`, `<news:publication>`, `<news:publication_date>`, and `<news:title>` tags.
+- **Standard XML Sitemap:** Clean index generated at [`/sitemap.xml`](https://hotdamn.my.id/sitemap.xml).
+- **RSS 2.0 Feed:** Full-text syndication feed at [`/index.xml`](https://hotdamn.my.id/index.xml) for aggregators and newsletter integrations.
+- **Schema.org Structured Data:** Valid `NewsArticle` JSON-LD with Indonesian timezone offsets (`+07:00` WIB) on every article page.
 
-### 3.3. Sitemaps & Feeds
-1. **Google News XML Sitemap (`/news-sitemap.xml`)**:
-   - Custom Hugo layout rendering articles published within the last 48 hours.
-   - Uses `<news:news>`, `<news:publication>`, `<news:publication_date>`, and `<news:title>` tags per Google News guidelines.
-2. **Standard Sitemap (`/sitemap.xml`)**: Complete crawl index with priority and change frequencies.
-3. **Full-Text RSS 2.0 Feed (`/index.xml`)**: For RSS aggregators, Google Discover crawlers, and newsletter syndication.
-
-### 3.4. Indonesian Viral Sharing & Engagement
-- **WhatsApp Share Button:** Direct `whatsapp://send?text=...` with auto-encoded title and short canonical link.
-- **Telegram Share Button:** Direct `https://t.me/share/url?url=...`
-- **X / Twitter Share Button:** Formatted with trending Indonesian hashtags (#Teknologi #Politik #Viral).
-- **Automated OpenGraph Social Previews:** Crisp 1200x630 share cards formatted for WhatsApp link previews.
+### 3.3. Viral Indonesian Distribution Actions
+- **WhatsApp Share:** Native 1-click URL with pre-encoded title and short canonical link.
+- **Telegram Share:** Direct link for channel and group broadcasts.
+- **X (Twitter):** Clean share action with headline and URL.
+- **Salin Tautan:** Instant clipboard copy with non-intrusive toast feedback (*"Tautan tersalin!"*).
 
 ---
 
-## 4. Design & UI Specifications (Medium Aesthetic)
-
-> [!NOTE]
-> Detailed design tokens, typography scale, and layout will be finalized with your design agent. The framework is built to accept custom CSS/tokens seamlessly.
-
-### Core Visual Principles
-1. **Clean White Backdrop:** Minimalist `#ffffff` background with subtle `#f9fafb` card/accent backgrounds.
-2. **Editorial Typography:**
-   - Headlines: Elegant, high-legibility serif or sharp modern sans (e.g. `Lora`, `Merriweather`, or `Instrument Serif` paired with `Inter`).
-   - Body: Clean reader-friendly sans-serif at `18px-20px` with `1.75` line-height for effortless reading.
-3. **Category Badges & Hot Takes:** Subtle pill badges for niches:
-   - `AI & TECH`
-   - `POLITIK`
-   - `KONFLIK & DRAMA`
-   - `HOT TAKE`
-4. **Reading Indicators:** Estimated reading time (`X menit membaca`) and publication date in Indonesian locale (`25 September 2026`).
-5. **Distraction-Free Layout:**
-   - Single-column article view with max-width `720px` (optimal reading measure).
-   - Sticky minimal header with brand logo and subtle category links.
-   - Zero intrusive popups or third-party ads.
-
----
-
-## 5. Directory & File Structure
+## 4. Codebase & Directory Structure
 
 ```text
 hotdamn.my.id/
-├── .github/
-│   └── workflows/              # Optional backup CI workflows
 ├── archetypes/
-│   └── default.md              # Template for new articles with frontmatter
+│   └── default.md              # Template for new articles
 ├── assets/
-│   ├── css/
-│   │   └── main.css            # Medium-style minimal typography & layout
-│   └── js/
-│       └── share.js            # Lightweight 1-click share & clipboard utilities
+│   └── css/
+│       └── style.css           # Master stylesheet (inlined directly into <head>)
 ├── content/
-│   └── posts/
-│       ├── ai-di-indonesia.md  # Sample initial article (Tech/AI)
-│       └── politik-panas.md    # Sample initial article (Politics/Drama)
+│   ├── tentang.md              # About publication page
+│   └── posts/                  # Flat Markdown database
+│       ├── kedaulatan-ai-indonesia-antara-jargon-politik-dan-realitas-server.md
+│       ├── drama-koalisi-digital-siapa-sebenarnya-menguasai-data-pemilih.md
+│       └── rekalibrasi-startup-jakarta-ketika-valuasi-halusinasi-terbentur-realita.md
 ├── layouts/
 │   ├── _default/
-│   │   ├── baseof.html         # Master shell with SEO, GEO, and OpenGraph tags
-│   │   ├── list.html           # Homepage & category listings
-│   │   └── single.html         # Article reading view (Medium style)
+│   │   ├── baseof.html         # Base HTML shell
+│   │   ├── list.html           # Category & tag archives (2-column layout)
+│   │   └── single.html         # Single article view (2-column editorial layout)
 │   ├── partials/
-│   │   ├── header.html         # Clean navbar
-│   │   ├── footer.html         # Minimal footer
-│   │   ├── seo.html            # All meta tags, GEO, and JSON-LD
-│   │   └── share-buttons.html  # WhatsApp, Telegram, X buttons
-│   ├── index.html              # Frontpage layout
-│   ├── news-sitemap.xml        # Google News specific XML sitemap
-│   └── sitemap.xml             # Standard sitemap template
+│   │   ├── head.html           # SEO, GEO, Google Fonts, and Inlined CSS
+│   │   ├── header.html         # 1140px header with Playwrite BE WAL cursive logo
+│   │   └── footer.html         # Minimal publication footer
+│   ├── index.html              # Homepage (2-column layout)
+│   └── index.newssitemap.xml   # Google News XML sitemap template
 ├── static/
 │   ├── admin/
-│   │   ├── index.html          # Sveltia / Decap CMS admin interface
-│   │   └── config.yml          # CMS fields configuration (Title, category, tags, cover)
-│   ├── images/                 # Uploaded media & logos
-│   ├── favicon.ico
-│   └── robots.txt              # Search engine crawler instructions
-├── config.toml                 # Hugo master configuration
-├── vercel.json                 # Vercel routing & cache headers
-└── plan.md                     # Master project blueprint
+│   │   ├── index.html          # Sveltia CMS web interface
+│   │   └── config.yml          # CMS collection and field schema
+│   └── robots.txt              # Crawler permissions & sitemap declarations
+├── hugo.toml                   # Hugo site configuration (Go SSG)
+├── vercel.json                 # Vercel security headers and caching policies
+├── plan.md                     # This master production blueprint
+└── design.md                   # Visual specification reference
 ```
 
 ---
 
-## 6. Step-by-Step Implementation Roadmap
+## 5. Deployment & Production Setup (Step-by-Step)
 
-- [ ] **Phase 1: Project Initialization & Hugo Setup**
-  - Initialize Hugo site structure with native configuration (`config.toml`).
-  - Configure `hotdamn.my.id` base URL, Indonesian language locale (`id-ID`), and timezone (`Asia/Jakarta`).
-- [ ] **Phase 2: Private Admin Panel (`/admin`)**
-  - Set up Sveltia CMS / Decap CMS at `/static/admin/index.html`.
-  - Configure `/static/admin/config.yml` with article collections, categories (AI, Tech, Politik, Drama), cover image uploader, and markdown editor.
-- [ ] **Phase 3: Clean Medium-Style Theme Layout**
-  - Implement distraction-free single-column article template.
-  - Implement clean homepage with featured stories and category feeds.
-  - Structure CSS for easy adaptation once your design agent provides final visual tokens.
-- [ ] **Phase 4: Full Indonesian SEO & GEO Engine**
-  - Implement comprehensive OpenGraph & Twitter Card headers.
-  - Implement JSON-LD `NewsArticle` schema.
-  - Generate automated `news-sitemap.xml` for Google News eligibility.
-  - Add 1-click WhatsApp & Telegram share integrations.
-- [ ] **Phase 5: Cloudflare & Vercel Deployment Configuration**
-  - Create `vercel.json` with security headers, cache policies, and clean URLs.
-  - Document Cloudflare DNS settings (Proxied A/CNAME records) and SSL settings.
+### Step 1: Connect Git Repository to GitHub
+```bash
+git remote add origin https://github.com/<your-username>/hotdamn.my.id.git
+git push -u origin main
+```
+
+### Step 2: Deploy to Vercel (Free)
+1. Go to [vercel.com](https://vercel.com) and log in.
+2. Click **"Add New Project"** $\rightarrow$ select the `hotdamn.my.id` repository.
+3. Vercel automatically detects **Hugo** as the framework preset.
+4. Click **Deploy**. Your site will build and be live globally in under 20 seconds.
+
+### Step 3: Configure Cloudflare DNS & Custom Domain
+1. In Vercel Project Settings $\rightarrow$ **Domains**, add `hotdamn.my.id` and `www.hotdamn.my.id`.
+2. In your Cloudflare dashboard for `hotdamn.my.id`:
+   - Add **CNAME** record: `hotdamn.my.id` $\rightarrow$ `cname.vercel-dns.com` (Proxy status: **Proxied**).
+   - Add **CNAME** record: `www` $\rightarrow$ `cname.vercel-dns.com` (Proxy status: **Proxied**).
+3. Set SSL/TLS encryption mode to **Full (strict)** in Cloudflare.
+4. Enable **Auto Minify** and **HTTP/3** in Cloudflare for maximum Indonesian mobile speed.
+
+---
+
+## 6. Daily Editorial Workflow (Publishing Stories)
+
+### Option A: Via the Web Admin Panel (`/admin`)
+1. Visit `https://hotdamn.my.id/admin/` on any laptop or phone.
+2. Log in with your GitHub account.
+3. Click **"New Artikel & Liputan"**:
+   - Write title, subtitle summary, select category (`Tech & AI`, `Politik`, `Konflik`).
+   - Write or paste your article in rich text / markdown.
+   - Click **Save** $\rightarrow$ **Publish**.
+4. Sveltia CMS commits the file directly to your GitHub repository, and Vercel automatically redeploys your site in ~15 seconds.
+
+### Option B: Via Terminal / Markdown
+```bash
+hugo new posts/judul-artikel-baru.md
+# Edit the file in your favorite text editor
+git add . && git commit -m "feat: publish new story" && git push
+```
